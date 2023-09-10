@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-importer",
+  "name": "vite-plugin-lib-importer",
   "version": "0.0.1",
   "description": "A vite plugin for import ui library component style automatic.",
   "main": "dist/index.cjs",
@@ -15,8 +15,13 @@
   "scripts": {
     "build": "unbuild"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/end-candle/vite-plugin-importer.git"
+  },
   "keywords": [
-    "vite-plugin-importer"
+    "vite-plugin-importer",
+    "vite-plugin-lib-importer"
   ],
   "files": [
     "dist",

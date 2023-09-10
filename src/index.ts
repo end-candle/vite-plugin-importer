@@ -7,7 +7,7 @@ import { fileExists, isFunction } from './shared';
 
 const asRE = /\s+as\s+\w+,?/g;
 
-export function createStyleImportPlugin(options: VitePluginOptions): Plugin {
+export default function createImportPlugin(options: VitePluginOptions): Plugin {
   const libs = Array.isArray(options) ? options : [options];
   const libMap: Map<string, Lib> = new Map();
   libs.forEach((item) => {
@@ -113,7 +113,7 @@ async function transformComponentCss(lib: Lib, importVariables: readonly string[
 }
 
 // Extract import variables
-export function transformImportVar(importStr: string) {
+function transformImportVar(importStr: string) {
   if (!importStr) {
     return [];
   }
@@ -129,7 +129,7 @@ export function transformImportVar(importStr: string) {
 }
 
 // File name conversion style
-export function getChangeCaseFileName(importedName: string, libraryNameChangeCase: LibraryNameChangeCase) {
+function getChangeCaseFileName(importedName: string, libraryNameChangeCase: LibraryNameChangeCase) {
   try {
     return changeCase[libraryNameChangeCase as ChangeCaseType](importedName);
   } catch (error) {
