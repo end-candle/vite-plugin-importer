@@ -7,7 +7,7 @@ export function fileExists(file: string) {
   try {
     return fs.statSync(file).isFile();
   } catch (e) {
-    console.error(e);
+    console.error(`${file} not found`);
     return false;
   }
 }
@@ -22,7 +22,7 @@ export function resolveNodeModules(libName: string) {
   try {
     modulePath = normalizePath(esRequire.resolve(libName));
   } catch (error) {
-    console.error(`${libName} not found`);
+    return '';
   }
   return modulePath;
 }
