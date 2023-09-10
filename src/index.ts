@@ -3,7 +3,7 @@ import type { ImportSpecifier } from 'es-module-lexer';
 import type { ChangeCaseType, VitePluginOptions, LibraryNameChangeCase, Lib } from './types';
 import * as changeCase from 'change-case';
 import { init, parse } from 'es-module-lexer';
-import { fileExists, isFunction } from './shared';
+import { fileExists, isFunction, resolveNodeModules } from './shared';
 
 const asRE = /\s+as\s+\w+,?/g;
 
@@ -18,7 +18,6 @@ export default function createImportPlugin(options: VitePluginOptions): Plugin {
 
   return {
     name: 'vitejs:importer',
-    enforce: 'post',
     async configResolved(resolvedConfig) {
       // store the resolved config
       viteConfig = resolvedConfig;
@@ -85,7 +84,7 @@ function filterImportVariables(importVars: readonly string[], reg?: RegExp) {
 async function transformComponentCss(lib: Lib, importVariables: readonly string[], viteConfig: ResolvedConfig) {
   const { libraryName, resolveStyle, libraryNameChangeCase = 'paramCase', ensureStyleFile = false } = lib;
 
-  const ensureStyleFileFound =ensureStyleFile || viteConfig.command === 'build';
+  const ensureStyleFileFound = ensureStyleFile || viteConfig.command === 'build';
 
   if (!isFunction(resolveStyle) || !libraryName) {
     return [];
@@ -99,9 +98,8 @@ async function transformComponentCss(lib: Lib, importVariables: readonly string[
     if (!importStr) {
       continue;
     }
-
+    importStr = resolveNodeModules(importStr);
     let isAdd = true;
-
     if (ensureStyleFileFound) {
       isAdd = fileExists(importStr);
     }

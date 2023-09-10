@@ -1,6 +1,6 @@
 {
-  "name": "vite-plugin-lib-importer",
-  "version": "0.0.1",
+  "name": "vite-plugin-libs-importer",
+  "version": "0.0.2",
   "description": "A vite plugin for import ui library component style automatic.",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
@@ -21,7 +21,7 @@
   },
   "keywords": [
     "vite-plugin-importer",
-    "vite-plugin-lib-importer"
+    "vite-plugin-libs-importer"
   ],
   "files": [
     "dist",
